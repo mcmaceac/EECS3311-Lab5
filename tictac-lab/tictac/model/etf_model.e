@@ -45,7 +45,7 @@ feature -- model operations
 	update_status
 			-- Update the status based on the current game state
 		do
-			
+
 		end
 
 	reset
@@ -58,6 +58,15 @@ feature -- queries
 	out : STRING
 		do
 			create Result.make_from_string (status)
+		end
+
+feature -- command
+	new_game (p1: STRING; p2: STRING)
+		do
+			create g.make (p1, p2)
+			if attached g as game then
+				status := game.game_state
+			end
 		end
 
 end

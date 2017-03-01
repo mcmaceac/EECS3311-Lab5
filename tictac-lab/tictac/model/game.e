@@ -19,7 +19,7 @@ feature --Initialisation
 			p1_score := 0
 			p2_score := 0
 
-			err_message := "  ok: => " + player1 + " plays next"
+			err_message := "ok: => " + player1 + " plays next"
 			lines := <<"___", "___", "___">>
 		end
 
@@ -44,12 +44,12 @@ feature --Queries
 			Result.append ("  " + lines[1] + "%N")
 			Result.append ("  " + lines[2] + "%N")
 			Result.append ("  " + lines[3] + "%N")
-			Result.append ("  " + p1_score.out + ": score for %"" + player1 + "%" (as X)")
+			Result.append ("  " + p1_score.out + ": score for %"" + player1 + "%" (as X)%N")
 			Result.append ("  " + p2_score.out + ": score for %"" + player2 + "%" (as O)")
 		end
 
-	board_indexes (position: INTEGER): TUPLE[INTEGER, INTEGER]
-		--returns the proper index for the two dimensional board array
+	board_indexes (position: INTEGER): TUPLE[x: INTEGER; y: INTEGER]
+		--returns the proper x and y indexes for the two dimensional board array
 		local
 			x: INTEGER
 			y: INTEGER

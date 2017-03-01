@@ -17,7 +17,7 @@ feature -- command
 			new_game_precond(player1, player2)
     	do
 			-- perform some update on the model state
-			model.default_update
+			model.new_game (player1, player2)
 			etf_cmd_container.on_change.notify ([Current])
     	end
 
