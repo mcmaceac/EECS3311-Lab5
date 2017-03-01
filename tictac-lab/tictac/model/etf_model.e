@@ -33,7 +33,7 @@ feature {NONE} -- Initialization
 feature -- model attributes
 	status : STRING
 	i : INTEGER
-	g: detachable GAME
+	--g: detachable GAME
 
 feature -- model operations
 	default_update
