@@ -42,12 +42,6 @@ feature -- model operations
 			i := i + 1
 		end
 
-	update_status
-			-- Update the status based on the current game state
-		do
-
-		end
-
 	reset
 			-- Reset model state.
 		do
