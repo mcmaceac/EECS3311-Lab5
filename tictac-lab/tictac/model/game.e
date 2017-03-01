@@ -65,7 +65,7 @@ feature --Commands
 				else if board[position] /~ '_' then
 					err_message := "button already taken: => " + player1 + " plays next"
 				else
-					board[position].set_item ('X')
+					board.put ('X', position)
 					err_message := "ok: => " + player2 + " plays next"
 					p1_turn := false
 				end
@@ -80,7 +80,7 @@ feature --Commands
 				else if board[position] /~ '_' then
 					err_message := "button already taken: => " + player2 + " plays next"
 				else
-					board[position].set_item ('O')
+					board.put ('O', position)
 					err_message := "ok: => " + player1 + " plays next"
 					p1_turn := true
 				end
