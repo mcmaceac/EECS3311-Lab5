@@ -57,7 +57,11 @@ feature -- model operations
 feature -- queries
 	out : STRING
 		do
-			create Result.make_from_string (status)
+			if attached g as game then
+				Result := game.game_state
+			else
+				create Result.make_from_string (status)
+			end
 		end
 
 feature -- command
