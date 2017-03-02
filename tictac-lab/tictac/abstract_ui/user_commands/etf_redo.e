@@ -17,9 +17,7 @@ feature -- command
 			-- perform some update on the model state
 			if not_last then
 				model.history.forth
-				if attached model.history.item.p as person and attached model.history.item.pos as position then
-					model.history.item.redo
-				end
+				model.history.item.redo
 			end
 			etf_cmd_container.on_change.notify ([Current])
     	end

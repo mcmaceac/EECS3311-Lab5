@@ -9,6 +9,8 @@ class
 inherit
 	ETF_PLAY_INTERFACE
 		redefine play end
+	COMMAND
+		undefine out end
 
 create
 	make

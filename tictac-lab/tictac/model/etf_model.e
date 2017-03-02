@@ -36,7 +36,7 @@ feature -- model attributes
 	i : INTEGER
 	g: detachable GAME
 	--history: LINKED_LIST[COMMAND]		--history of commands for undo / redo
-	history: LINKED_LIST[ETF_PLAY]
+	history: LINKED_LIST[COMMAND]
 
 feature -- model operations
 	default_update
