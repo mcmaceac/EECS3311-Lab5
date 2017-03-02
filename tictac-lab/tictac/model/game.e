@@ -48,6 +48,21 @@ feature --Queries
 			Result.append ("  " + p2_score.out + ": score for %"" + player2 + "%" (as O)")
 		end
 
+	winner: BOOLEAN
+		--checks if there is a winner on the current board
+		do
+			Result := (board[1] ~ board[2] and board[2] ~ board[3] and board[1] /~ '_') or
+					  (board[4] ~ board[5] and board[5] ~ board[6] and board[4] /~ '_') or
+					  (board[7] ~ board[8] and board[8] ~ board[9] and board[7] /~ '_') or --horizontal wins
+
+					  (board[1] ~ board[4] and board[4] ~ board[7] and board[1] /~ '_') or
+					  (board[2] ~ board[5] and board[5] ~ board[7] and board[2] /~ '_') or
+					  (board[3] ~ board[6] and board[6] ~ board[9] and board[3] /~ '_') or --vertical wins
+
+					  (board[1] ~ board[5] and board[5] ~ board[9] and board[1] /~ '_') or
+					  (board[3] ~ board[5] and board[5] ~ board[7] and board[3] /~ '_')    -- two cross wins
+		end
+
 feature --Commands
 
 	play (player: STRING; position: INTEGER)
@@ -66,8 +81,15 @@ feature --Commands
 					err_message := "button already taken: => " + player1 + " plays next"
 				else
 					board.put ('X', position)
-					err_message := "ok: => " + player2 + " plays next"
-					p1_turn := false
+
+					--check to see if there is a winner after previous move
+					if winner then
+						err_message := "there is a winner: => play again or start new game"
+						p1_score := p1_score + 1
+					else
+						err_message := "ok: => " + player2 + " plays next"
+						p1_turn := false
+					end
 				end
 				end
 			else				--O
@@ -81,8 +103,15 @@ feature --Commands
 					err_message := "button already taken: => " + player2 + " plays next"
 				else
 					board.put ('O', position)
-					err_message := "ok: => " + player1 + " plays next"
-					p1_turn := true
+
+					--check to see if there is a winner after previous move
+					if winner then
+						err_message := "there is a winner: => play again or start new game"
+						p2_score := p2_score + 1
+					else
+						err_message := "ok: => " + player1 + " plays next"
+						p1_turn := true
+					end
 				end
 				end
 			end
