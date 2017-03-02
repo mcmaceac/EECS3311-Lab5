@@ -28,9 +28,4 @@ feature -- command
     		Result := (not model.history.is_empty) and (not model.history.before)
     	end
 
-    not_last: BOOLEAN
-    	do
-    		Result := (not model.history.is_empty) and (not model.history.islast)
-    	end
-
 end

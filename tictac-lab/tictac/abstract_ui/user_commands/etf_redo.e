@@ -6,17 +6,26 @@ note
 
 class
 	ETF_REDO
-inherit 
+inherit
 	ETF_REDO_INTERFACE
 		redefine redo end
 create
 	make
-feature -- command 
+feature -- command
 	redo
     	do
 			-- perform some update on the model state
-			model.default_update
+			if not_last then
+				if attached model.history.item.p as person and attached model.history.item.pos as position then
+					model.history.item.play (person, position)
+				end
+			end
 			etf_cmd_container.on_change.notify ([Current])
+    	end
+
+    not_last: BOOLEAN
+    	do
+    		Result := (not model.history.is_empty) and (not model.history.islast)
     	end
 
 end
