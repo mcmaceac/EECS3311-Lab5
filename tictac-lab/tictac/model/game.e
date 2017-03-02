@@ -34,13 +34,13 @@ feature {NONE}--Attributes
 	game_finished: BOOLEAN
 
 	score: ARRAY[INTEGER]	--index 1 is player 1's score, index 2 is player 2's score
-
-	err_message: STRING
-	next_instruction: STRING
 	board: ARRAY[CHARACTER]	--game board containing all marks
 
 feature --Queries
 
+	err_message: STRING
+	next_instruction: STRING
+	
 	game_state: STRING
 		do
 			create Result.make_empty
