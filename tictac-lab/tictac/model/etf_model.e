@@ -64,25 +64,10 @@ feature -- queries
 feature -- command
 	new_game (p1: STRING; p2: STRING)
 		do
-			if p1 ~ p2 then
-				if attached g as game then
-					game.err_message.make_from_string ("names of players must be different:")
-					status := game.game_state
-				else
-					create status.make_empty
-					status.append ("  names of players must be different:  => start new game%N")
-					status.append ("  ___%N")
-					status.append ("  ___%N")
-					status.append ("  ___%N")
-					status.append ("  0: score for %"%" (as X)%N")
-					status.append ("  0: score for %"%" (as O)")
-				end
-			else
-				create history.make				--clearing the history
-				create g.make (p1, p2)
-				if attached g as game then
-					status := game.game_state
-				end
+			create history.make				--clearing the history
+			create g.make (p1, p2)
+			if attached g as game then
+				status := game.game_state
 			end
 		end
 
