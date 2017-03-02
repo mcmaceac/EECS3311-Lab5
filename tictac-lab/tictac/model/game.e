@@ -58,7 +58,7 @@ feature --Queries
 					  (board[7] ~ board[8] and board[8] ~ board[9] and board[7] /~ '_') or --3 horizontal wins
 
 					  (board[1] ~ board[4] and board[4] ~ board[7] and board[1] /~ '_') or
-					  (board[2] ~ board[5] and board[5] ~ board[7] and board[2] /~ '_') or
+					  (board[2] ~ board[5] and board[5] ~ board[8] and board[2] /~ '_') or
 					  (board[3] ~ board[6] and board[6] ~ board[9] and board[3] /~ '_') or --3 vertical wins
 
 					  (board[1] ~ board[5] and board[5] ~ board[9] and board[1] /~ '_') or
