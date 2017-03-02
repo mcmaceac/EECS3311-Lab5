@@ -14,8 +14,8 @@ create
 	make
 
 feature --attributes
-	p: detachable STRING
 	pos: detachable INTEGER_64
+	p: detachable STRING
 
 feature -- command
 	play(player: STRING ; press: INTEGER_64)
@@ -28,6 +28,7 @@ feature -- command
 				p := player
 				pos := press
 				model.history.extend (Current)
+				model.history.finish
 			else
 				model.status.make_empty
 				model.status.append ("  no such player:  => start new game%N")
@@ -42,7 +43,9 @@ feature -- command
 
     undo
     	do
-
+			if attached model.g as game and attached p as player and attached pos as position then
+				game.reverse_play (player, position.as_integer_32)
+			end
     	end
 
 end

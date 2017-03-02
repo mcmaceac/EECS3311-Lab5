@@ -137,4 +137,15 @@ feature --Commands
 				end
 			end
 		end
+
+		reverse_play (player: STRING; position: INTEGER)
+			do
+				board.put ('_', position)	--remove mark from the board and alternate turn
+				if p1_turn then				--if it was p1's turn, then the command must have come from p2
+					next_instruction := player2 + " plays next"
+				else
+					next_instruction := player1 + " plays next"
+				end
+				p1_turn := not p1_turn
+			end
 end
