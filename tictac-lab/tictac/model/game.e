@@ -86,6 +86,9 @@ feature --Commands
 		end
 
 	play (player: STRING; position: INTEGER)
+		--main game functionality. Performs the necessary checks to make sure the user
+		--is entering the proper commands at the proper times. Does not check for 1..9
+		--since this check is done by ETF
 		local
 			p1, p2: STRING
 			mark: CHARACTER
