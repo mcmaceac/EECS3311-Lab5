@@ -78,6 +78,7 @@ feature -- command
 					status.append ("  0: score for %"%" (as O)")
 				end
 			else
+				create history.make				--clearing the history
 				create g.make (p1, p2)
 				if attached g as game then
 					status := game.game_state

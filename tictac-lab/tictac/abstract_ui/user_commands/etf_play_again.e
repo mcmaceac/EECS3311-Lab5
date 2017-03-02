@@ -16,6 +16,7 @@ feature -- command
     	do
 			-- perform some update on the model state
 			if attached model.g as game then
+				model.history.wipe_out		--delete all undo history
 				game.play_again
 			else							--no game started yet
 				model.status.make_empty
