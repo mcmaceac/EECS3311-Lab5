@@ -71,13 +71,17 @@ feature --Commands
 
 	play_again
 		do
-			board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
-			game_finished := false
-			err_message := "ok:"
-			if p1_turn then
-				next_instruction := player1 + " plays next"
+			if game_finished then
+				board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
+				game_finished := false
+				err_message := "ok:"
+				if p1_turn then
+					next_instruction := player1 + " plays next"
+				else
+					next_instruction := player2 + " plays next"
+				end
 			else
-				next_instruction := player2 + " plays next"
+				err_message := "finish this game first:"
 			end
 		end
 
