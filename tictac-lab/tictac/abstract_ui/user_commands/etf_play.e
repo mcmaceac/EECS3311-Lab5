@@ -48,4 +48,11 @@ feature -- command
 			end
     	end
 
+    redo
+    	do
+    		if attached model.g as game and attached p as player and attached pos as position then
+				game.play (player, position.as_integer_32)
+			end
+    	end
+
 end
