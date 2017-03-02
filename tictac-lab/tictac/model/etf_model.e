@@ -28,12 +28,15 @@ feature {NONE} -- Initialization
 			status.append ("  0: score for %"%" (as X)%N")
 			status.append ("  0: score for %"%" (as O)")
 			i := 0
+			create history.make
 		end
 
 feature -- model attributes
 	status : STRING
 	i : INTEGER
 	g: detachable GAME
+	--history: LINKED_LIST[COMMAND]		--history of commands for undo / redo
+	history: LINKED_LIST[ETF_PLAY]
 
 feature -- model operations
 	default_update
