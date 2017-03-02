@@ -25,7 +25,7 @@ feature --Initialisation
 			board := <<'_','_','_','_','_','_','_','_','_'>>
 		end
 
-feature --Attributes
+feature {NONE}--Attributes
 
 	player1: STRING
 	player2: STRING
@@ -52,6 +52,7 @@ feature --Queries
 			Result.append ("  " + score[2].out + ": score for %"" + player2 + "%" (as O)")
 		end
 
+feature {NONE}
 	winner: BOOLEAN
 		--checks if there is a winner on the current board
 		do
