@@ -17,6 +17,7 @@ feature -- command
 			-- perform some update on the model state
 			if not_last then
 				if attached model.history.item.p as person and attached model.history.item.pos as position then
+					model.history.forth
 					model.history.item.play (person, position)
 				end
 			end
