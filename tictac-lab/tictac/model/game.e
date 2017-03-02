@@ -15,6 +15,7 @@ feature --Initialisation
 		do
 			player1 := p1
 			player2 := p2
+			start_player := player1
 			p1_turn := true
 			game_finished := false
 			score := <<0, 0>>
@@ -28,6 +29,7 @@ feature --Attributes
 
 	player1: STRING
 	player2: STRING
+	start_player: STRING 	--used to track who goes first in each round
 	p1_turn: BOOLEAN		--indicates X to be placed instead of O
 	game_finished: BOOLEAN
 
@@ -115,7 +117,13 @@ feature --Commands
 						next_instruction := "play again or start new game"
 						score[score_index] := score[score_index] + 1
 						game_finished := true
-						p1_turn := score_index /= 1		--it is only player 1's turn next if they lost
+						if start_player ~ player1 then		--every round the player who starts alternates
+							start_player := player2
+							p1_turn := false
+						else
+							start_player := player1
+							p1_turn := true
+						end
 					else
 						err_message := "ok:"
 						next_instruction := p2 + " plays next"
