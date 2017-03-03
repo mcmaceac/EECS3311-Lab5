@@ -36,7 +36,6 @@ feature {NONE}--Attributes
 	player2: STRING
 	start_player: STRING 	--used to track who goes first in each round
 	p1_turn: BOOLEAN		--indicates X to be placed instead of O
-	game_finished: BOOLEAN
 
 	score: ARRAY[INTEGER]	--index 1 is player 1's score, index 2 is player 2's score
 	board: ARRAY[CHARACTER]	--game board containing all marks
@@ -45,7 +44,7 @@ feature --history of commands in game
 	history: LINKED_LIST[COMMAND]
 
 feature --Queries
-
+	game_finished: BOOLEAN		--so the model can know when a game is finished
 	err_message: STRING
 	next_instruction: STRING
 

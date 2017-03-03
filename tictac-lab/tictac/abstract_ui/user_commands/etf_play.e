@@ -31,9 +31,13 @@ feature -- command
 			p := player
 			pos := press
 
-			model.g.remove_all_right(model.g.history.index)		--erasing so redo functions properly
-			model.g.history.extend (Current)
-			model.g.history.finish
+			if not model.g.game_finished then						--game is still active
+				model.g.remove_all_right(model.g.history.index)		--erasing so redo functions properly
+				model.g.history.extend (Current)
+				model.g.history.finish
+			else													--game is finished, wipe the history
+				model.g.history.wipe_out
+			end
 
 			etf_cmd_container.on_change.notify ([Current])
     	end
