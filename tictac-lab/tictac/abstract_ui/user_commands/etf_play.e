@@ -29,10 +29,12 @@ feature -- command
 				game.play (player, press.as_integer_32)
 				p := player
 				pos := press
+
+				model.remove_all_right(model.history.index)
 				model.history.extend (Current)
 				model.history.finish
 			else
-				model.status.make_empty
+				model.status.make_empty			--if there is no game made then there are no players
 				model.status.append ("  no such player:  => start new game%N")
 				model.status.append ("  ___%N")
 				model.status.append ("  ___%N")

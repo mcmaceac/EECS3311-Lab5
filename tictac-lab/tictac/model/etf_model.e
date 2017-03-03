@@ -35,8 +35,7 @@ feature -- model attributes
 	status : STRING
 	i : INTEGER
 	g: detachable GAME
-	--history: LINKED_LIST[COMMAND]		--history of commands for undo / redo
-	history: LINKED_LIST[COMMAND]
+	history: LINKED_LIST[COMMAND]		--history of commands for undo / redo
 
 feature -- model operations
 	default_update
@@ -49,6 +48,27 @@ feature -- model operations
 			-- Reset model state.
 		do
 			make
+		end
+
+	remove_all_right (index: INTEGER)
+		--remove all items right of ith item
+		local
+			l: LINKED_LIST[COMMAND]
+			j: INTEGER
+		do
+			create l.make
+			from
+				j := 1
+				history.start
+			until
+				j > index
+			loop
+				l.extend (history.item)
+				j := j + 1
+				history.forth
+			end
+			history.wipe_out
+			history.append (l)
 		end
 
 feature -- queries
