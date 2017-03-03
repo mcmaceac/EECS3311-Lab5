@@ -195,11 +195,11 @@ feature --Commands
 			history.append (l)
 		end
 
-	reverse_play (player: STRING; position: INTEGER)
+	reverse_play (player: STRING; position: INTEGER; err: STRING)
 		do
 			if not game_finished then		--only reverse a play if the game is not finished
 				board.put ('_', position)	--remove mark from the board and alternate turn
-				err_message := "ok:"
+				err_message := err
 				if p1_turn then				--if it was p1's turn, then the command must have come from p2
 					next_instruction := player2 + " plays next"
 				else

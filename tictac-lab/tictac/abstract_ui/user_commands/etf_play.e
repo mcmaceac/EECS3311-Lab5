@@ -18,6 +18,7 @@ create
 feature --attributes
 	pos: detachable INTEGER_64
 	p: detachable STRING
+	err: detachable STRING
 
 feature -- command
 	play(player: STRING ; press: INTEGER_64)
@@ -25,6 +26,7 @@ feature -- command
 			play_precond(player, press)
     	do
 			-- perform some update on the model state
+			err := model.g.err_message					--saving the current error message
 			model.g.play (player, press.as_integer_32)
 			p := player
 			pos := press
@@ -38,8 +40,8 @@ feature -- command
 
     undo
     	do
-			if attached p as player and attached pos as position then
-				model.g.reverse_play (player, position.as_integer_32)
+			if attached p as player and attached pos as position and attached err as err_m then
+				model.g.reverse_play (player, position.as_integer_32, err_m)
 			end
     	end
 

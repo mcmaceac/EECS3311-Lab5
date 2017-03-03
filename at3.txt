@@ -1,0 +1,17 @@
+new_game("Matt", "world")
+play("Matt", 1)
+play("world",2)
+play("Matt", 5)
+play_again
+play("world",3)
+new_game("Matt", "Matt")
+play("Matt", 7)
+play("world",4)
+undo
+undo
+undo
+undo
+play("Matt", 5)
+redo
+redo
+redo
