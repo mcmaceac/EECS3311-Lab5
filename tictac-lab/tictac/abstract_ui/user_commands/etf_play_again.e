@@ -15,7 +15,7 @@ feature -- command
 	play_again
     	do
 			-- perform some update on the model state
-			model.g.history.wipe_out		--delete all command history
+			--model.g.history.wipe_out		--delete all command history
 			model.g.play_again
 			etf_cmd_container.on_change.notify ([Current])
     	end

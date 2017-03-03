@@ -106,6 +106,7 @@ feature --Commands
 				board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
 				game_finished := false
 				err_message := "ok:"
+				history.wipe_out										--clear command history
 				if p1_turn then
 					next_instruction := player1 + " plays next"
 				else
@@ -198,6 +199,7 @@ feature --Commands
 		do
 			if not game_finished then		--only reverse a play if the game is not finished
 				board.put ('_', position)	--remove mark from the board and alternate turn
+				err_message := "ok:"
 				if p1_turn then				--if it was p1's turn, then the command must have come from p2
 					next_instruction := player2 + " plays next"
 				else
