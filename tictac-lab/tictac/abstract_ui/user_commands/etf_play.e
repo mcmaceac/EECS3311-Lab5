@@ -31,7 +31,7 @@ feature -- command
 			p := player
 			pos := press
 
-			model.g.remove_all_right(model.g.history.index)
+			model.g.remove_all_right(model.g.history.index)		--erasing so redo functions properly
 			model.g.history.extend (Current)
 			model.g.history.finish
 
