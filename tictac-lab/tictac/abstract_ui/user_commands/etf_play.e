@@ -25,37 +25,28 @@ feature -- command
 			play_precond(player, press)
     	do
 			-- perform some update on the model state
-			if attached model.g as game then
-				game.play (player, press.as_integer_32)
-				p := player
-				pos := press
+			model.g.play (player, press.as_integer_32)
+			p := player
+			pos := press
 
-				model.remove_all_right(model.history.index)
-				model.history.extend (Current)
-				model.history.finish
-			else
-				model.status.make_empty			--if there is no game made then there are no players
-				model.status.append ("  no such player:  => start new game%N")
-				model.status.append ("  ___%N")
-				model.status.append ("  ___%N")
-				model.status.append ("  ___%N")
-				model.status.append ("  0: score for %"%" (as X)%N")
-				model.status.append ("  0: score for %"%" (as O)")
-			end
+			model.g.remove_all_right(model.g.history.index)
+			model.g.history.extend (Current)
+			model.g.history.finish
+
 			etf_cmd_container.on_change.notify ([Current])
     	end
 
     undo
     	do
-			if attached model.g as game and attached p as player and attached pos as position then
-				game.reverse_play (player, position.as_integer_32)
+			if attached p as player and attached pos as position then
+				model.g.reverse_play (player, position.as_integer_32)
 			end
     	end
 
     redo
     	do
-    		if attached model.g as game and attached p as player and attached pos as position then
-				game.play (player, position.as_integer_32)
+    		if attached p as player and attached pos as position then
+				model.g.play (player, position.as_integer_32)
 			end
     	end
 

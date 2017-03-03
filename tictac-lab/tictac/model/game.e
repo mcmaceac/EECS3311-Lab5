@@ -11,21 +11,26 @@ create
 	make
 
 feature --Initialisation
-	make (p1: STRING; p2: STRING)
+	make
 		do
-			player1 := p1
-			player2 := p2
-			start_player := player1
-			p1_turn := true
+			new_game_started := false
+			player1 := ""
+			player2 := ""
+			start_player := ""
+			p1_turn := false
 			game_finished := false
 			score := <<0, 0>>
-
-			err_message := "ok:"
-			next_instruction := player1 + " plays next"
 			board := <<'_','_','_','_','_','_','_','_','_'>>
+			create history.make
+
+			err_message := "ok: "
+			next_instruction := "start new game"
 		end
 
 feature {NONE}--Attributes
+	new_game_started: BOOLEAN	--this variable is needed because for some reason there is a
+								--space in the error message for new game when you havent started a game already
+								--vs if you have started a game already
 
 	player1: STRING
 	player2: STRING
@@ -36,11 +41,14 @@ feature {NONE}--Attributes
 	score: ARRAY[INTEGER]	--index 1 is player 1's score, index 2 is player 2's score
 	board: ARRAY[CHARACTER]	--game board containing all marks
 
+feature --history of commands in game
+	history: LINKED_LIST[COMMAND]
+
 feature --Queries
 
 	err_message: STRING
 	next_instruction: STRING
-	
+
 	game_state: STRING
 		do
 			create Result.make_empty
@@ -69,6 +77,28 @@ feature {NONE}
 		end
 
 feature --Commands
+
+	new_game (p1: STRING; p2: STRING)
+		do
+			if p1 ~ p2 and new_game_started then						--for some reason these two situations have different error messages
+				err_message := "names of players must be different:"
+			else if p1 ~ p2 and not new_game_started then
+				err_message := "names of players must be different: "
+			else
+				new_game_started := true
+				player1 := p1
+				player2 := p2
+				start_player := player1
+				p1_turn := true
+				game_finished := false
+				score := <<0, 0>>
+				board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
+
+				err_message := "ok:"
+				next_instruction := player1 + " plays next"
+			end
+			end
+		end
 
 	play_again
 		do
@@ -125,6 +155,7 @@ feature --Commands
 						next_instruction := "play again or start new game"
 						score[score_index] := score[score_index] + 1
 						game_finished := true
+
 						if start_player ~ player1 then		--every round the player who starts alternates
 							start_player := player2
 							p1_turn := false
@@ -142,14 +173,37 @@ feature --Commands
 			end
 		end
 
+	remove_all_right (index: INTEGER)
+		--remove all items right of ith item
+		local
+			l: LINKED_LIST[COMMAND]
+			i: INTEGER
+		do
+			create l.make
+			from
+				i := 1
+				history.start
+			until
+				i > index
+			loop
+				l.extend (history.item)
+				i := i + 1
+				history.forth
+			end
+			history.wipe_out
+			history.append (l)
+		end
+
 	reverse_play (player: STRING; position: INTEGER)
 		do
-			board.put ('_', position)	--remove mark from the board and alternate turn
-			if p1_turn then				--if it was p1's turn, then the command must have come from p2
-				next_instruction := player2 + " plays next"
-			else
-				next_instruction := player1 + " plays next"
+			if not game_finished then		--only reverse a play if the game is not finished
+				board.put ('_', position)	--remove mark from the board and alternate turn
+				if p1_turn then				--if it was p1's turn, then the command must have come from p2
+					next_instruction := player2 + " plays next"
+				else
+					next_instruction := player1 + " plays next"
+				end
+				p1_turn := not p1_turn
 			end
-			p1_turn := not p1_turn
 		end
 end

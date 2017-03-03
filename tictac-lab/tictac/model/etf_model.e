@@ -20,22 +20,14 @@ feature {NONE} -- Initialization
 	make
 			-- Initialization for `Current'.
 		do
-			create status.make_empty
-			status.append ("  ok:  => start new game%N")
-			status.append ("  ___%N")
-			status.append ("  ___%N")
-			status.append ("  ___%N")
-			status.append ("  0: score for %"%" (as X)%N")
-			status.append ("  0: score for %"%" (as O)")
 			i := 0
-			create history.make
+			create g.make
 		end
 
 feature -- model attributes
-	status : STRING
 	i : INTEGER
-	g: detachable GAME
-	history: LINKED_LIST[COMMAND]		--history of commands for undo / redo
+	g: GAME
+	--history: LINKED_LIST[COMMAND]		--history of commands for undo / redo
 
 feature -- model operations
 	default_update
@@ -50,45 +42,16 @@ feature -- model operations
 			make
 		end
 
-	remove_all_right (index: INTEGER)
-		--remove all items right of ith item
-		local
-			l: LINKED_LIST[COMMAND]
-			j: INTEGER
-		do
-			create l.make
-			from
-				j := 1
-				history.start
-			until
-				j > index
-			loop
-				l.extend (history.item)
-				j := j + 1
-				history.forth
-			end
-			history.wipe_out
-			history.append (l)
-		end
 
 feature -- queries
 	out : STRING
 		do
-			if attached g as game then
-				Result := game.game_state
-			else
-				create Result.make_from_string (status)
-			end
-		end
-
-feature -- command
-	new_game (p1: STRING; p2: STRING)
-		do
-			create history.make				--clearing the history
-			create g.make (p1, p2)
-			if attached g as game then
-				status := game.game_state
-			end
+--			if attached g as game then
+--				Result := game.game_state
+--			else
+--				create Result.make_from_string (status)
+--			end
+			Result := g.game_state
 		end
 
 end

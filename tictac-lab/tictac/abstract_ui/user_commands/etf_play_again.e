@@ -15,18 +15,8 @@ feature -- command
 	play_again
     	do
 			-- perform some update on the model state
-			if attached model.g as game then
-				model.history.wipe_out		--delete all undo history
-				game.play_again
-			else							--no game started yet
-				model.status.make_empty
-				model.status.append ("  finish this game first:  => start new game%N")
-				model.status.append ("  ___%N")
-				model.status.append ("  ___%N")
-				model.status.append ("  ___%N")
-				model.status.append ("  0: score for %"%" (as X)%N")
-				model.status.append ("  0: score for %"%" (as O)")
-			end
+			model.g.history.wipe_out		--delete all command history
+			model.g.play_again
 			etf_cmd_container.on_change.notify ([Current])
     	end
 
