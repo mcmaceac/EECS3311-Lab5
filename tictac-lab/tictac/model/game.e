@@ -147,7 +147,7 @@ feature --Commands
 					end
 				else if board[position] /~ '_' then
 					err_message := "button already taken:"
-				else
+				else																	--all checks passed
 					board.put (mark, position)
 					--check to see if there is a winner after previous move
 					if winner then
