@@ -13,13 +13,11 @@ create
 feature --Initialisation
 	make
 		do
-			new_game_started := false
 			player1 := ""
 			player2 := ""
 			start_player := ""
 			p1_turn := false
 			score := <<0, 0>>
-			--board := <<'_','_','_','_','_','_','_','_','_'>>
 			wipe_board
 			create history.make
 
@@ -31,7 +29,6 @@ feature {NONE}--Attributes
 	new_game_started: BOOLEAN	--this variable is needed because for some reason there is a
 								--space in the error message for new game when you havent started a game already
 								--vs if you have started a game already
-
 	player1: STRING
 	player2: STRING
 	start_player: STRING 	--used to track who goes first in each round
@@ -49,6 +46,7 @@ feature --Queries
 		do
 			Result := winner	--if there is a winner the game is finished
 		end
+		
 	err_message: STRING
 	next_instruction: STRING
 
@@ -102,7 +100,6 @@ feature --Commands
 				start_player := player1
 				p1_turn := true
 				score := <<0, 0>>
-				--board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
 				wipe_board
 				err_message := "ok:"
 				next_instruction := player1 + " plays next"
