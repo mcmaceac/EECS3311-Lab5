@@ -18,9 +18,9 @@ feature --Initialisation
 			player2 := ""
 			start_player := ""
 			p1_turn := false
-			game_finished := false
 			score := <<0, 0>>
-			board := <<'_','_','_','_','_','_','_','_','_'>>
+			--board := <<'_','_','_','_','_','_','_','_','_'>>
+			wipe_board
 			create history.make
 
 			err_message := "ok: "
@@ -39,12 +39,16 @@ feature {NONE}--Attributes
 
 	score: ARRAY[INTEGER]	--index 1 is player 1's score, index 2 is player 2's score
 	board: ARRAY[CHARACTER]	--game board containing all marks
+	board_size: INTEGER = 3
 
 feature --history of commands in game
 	history: LINKED_LIST[COMMAND]
 
 feature --Queries
 	game_finished: BOOLEAN		--so the model can know when a game is finished
+		do
+			Result := winner	--if there is a winner the game is finished
+		end
 	err_message: STRING
 	next_instruction: STRING
 
@@ -73,6 +77,14 @@ feature {NONE}
 
 					  (board[1] ~ board[5] and board[5] ~ board[9] and board[1] /~ '_') or
 					  (board[3] ~ board[5] and board[5] ~ board[7] and board[3] /~ '_')    --2 cross wins
+
+		end
+
+feature {NONE} --Privileged Commands
+
+	wipe_board				--wipe the board according to the board size
+		do
+			create board.make_filled('_', 1, board_size * board_size)
 		end
 
 feature --Commands
@@ -89,10 +101,9 @@ feature --Commands
 				player2 := p2
 				start_player := player1
 				p1_turn := true
-				game_finished := false
 				score := <<0, 0>>
-				board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
-
+				--board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
+				wipe_board
 				err_message := "ok:"
 				next_instruction := player1 + " plays next"
 			end
@@ -102,8 +113,8 @@ feature --Commands
 	play_again
 		do
 			if game_finished then
-				board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
-				game_finished := false
+				--board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
+				wipe_board
 				err_message := "ok:"
 				history.wipe_out										--clear command history
 				if p1_turn then
@@ -154,7 +165,6 @@ feature --Commands
 						err_message := "there is a winner:"
 						next_instruction := "play again or start new game"
 						score[score_index] := score[score_index] + 1
-						game_finished := true
 
 						if start_player ~ player1 then		--every round the player who starts alternates
 							start_player := player2
