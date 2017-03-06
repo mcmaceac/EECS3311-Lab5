@@ -46,7 +46,7 @@ feature --Queries
 		do
 			Result := winner	--if there is a winner the game is finished
 		end
-		
+
 	err_message: STRING
 	next_instruction: STRING
 
@@ -110,7 +110,6 @@ feature --Commands
 	play_again
 		do
 			if game_finished then
-				--board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
 				wipe_board
 				err_message := "ok:"
 				history.wipe_out										--clear command history
