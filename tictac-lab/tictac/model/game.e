@@ -93,6 +93,10 @@ feature --Commands
 				err_message := "names of players must be different:"
 			else if p1 ~ p2 and not new_game_started then
 				err_message := "names of players must be different: "
+			else if (not p1.at (1).is_alpha or not p2.at (1).is_alpha) and new_game_started then
+				err_message := "name must start with A-Z or a-z:"
+			else if (not p1.at (1).is_alpha or not p2.at (1).is_alpha) and not new_game_started then
+				err_message := "name must start with A-Z or a-z: "
 			else
 				new_game_started := true
 				player1 := p1
@@ -103,6 +107,8 @@ feature --Commands
 				wipe_board
 				err_message := "ok:"
 				next_instruction := player1 + " plays next"
+			end
+			end
 			end
 			end
 		end
