@@ -211,10 +211,12 @@ feature {ETF_COMMAND} --Commands
 	reverse_play (player: STRING; position: INTEGER; err: STRING; next: STRING; turn: BOOLEAN)
 		do
 			if not game_finished then		--only reverse a play if the game is not finished
-				board.put ('_', position)	--remove mark from the board and alternate turn
 				err_message := err
 				next_instruction := next
 
+				if not p1_turn ~ turn then
+					board.put ('_', position)	--remove mark from the board and alternate turn
+				end
 				p1_turn := turn
 			end
 		end

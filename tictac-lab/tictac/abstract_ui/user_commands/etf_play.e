@@ -49,7 +49,8 @@ feature -- command
     undo
     	do
 			if attached p as player and attached pos as position and
-			attached err as err_m and attached next as next_m and attached turn as t then
+			attached err as err_m and attached next as next_m and
+			attached turn as t then
 				model.g.reverse_play (player, position.as_integer_32, err_m, next_m, t)
 			end
     	end
