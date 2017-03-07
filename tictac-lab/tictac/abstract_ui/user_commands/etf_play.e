@@ -20,6 +20,7 @@ feature --attributes
 	p: detachable STRING
 	err: detachable STRING
 	next: detachable STRING
+	turn: detachable BOOLEAN
 
 feature -- command
 	play(player: STRING ; press: INTEGER_64)
@@ -28,6 +29,8 @@ feature -- command
     	do
 			-- perform some update on the model state
 			err := model.g.err_message					--saving the current error message
+			next := model.g.next_instruction
+			turn := model.g.p1_turn
 			model.g.play (player, press.as_integer_32)
 			p := player
 			pos := press
@@ -45,8 +48,9 @@ feature -- command
 
     undo
     	do
-			if attached p as player and attached pos as position and attached err as err_m then
-				model.g.reverse_play (player, position.as_integer_32, err_m)
+			if attached p as player and attached pos as position and
+			attached err as err_m and attached next as next_m and attached turn as t then
+				model.g.reverse_play (player, position.as_integer_32, err_m, next_m, t)
 			end
     	end
 
@@ -56,5 +60,4 @@ feature -- command
 				model.g.play (player, position.as_integer_32)
 			end
     	end
-
 end

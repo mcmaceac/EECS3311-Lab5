@@ -32,7 +32,7 @@ feature {NONE}--Attributes
 	player1: STRING
 	player2: STRING
 	start_player: STRING 	--used to track who goes first in each round
-	p1_turn: BOOLEAN		--indicates X to be placed instead of O
+
 
 	score: ARRAY[INTEGER]	--index 1 is player 1's score, index 2 is player 2's score
 	board: ARRAY[CHARACTER]	--game board containing all marks
@@ -49,6 +49,7 @@ feature {ETF_COMMAND}--Queries
 
 	err_message: STRING
 	next_instruction: STRING
+	p1_turn: BOOLEAN		--indicates X to be placed instead of O
 
 feature
 	game_state: STRING
@@ -207,17 +208,14 @@ feature {ETF_COMMAND} --Commands
 			history.append (l)
 		end
 
-	reverse_play (player: STRING; position: INTEGER; err: STRING)
+	reverse_play (player: STRING; position: INTEGER; err: STRING; next: STRING; turn: BOOLEAN)
 		do
 			if not game_finished then		--only reverse a play if the game is not finished
 				board.put ('_', position)	--remove mark from the board and alternate turn
 				err_message := err
-				if p1_turn then				--if it was p1's turn, then the command must have come from p2
-					next_instruction := player2 + " plays next"
-				else
-					next_instruction := player1 + " plays next"
-				end
-				p1_turn := not p1_turn
+				next_instruction := next
+
+				p1_turn := turn
 			end
 		end
 end
