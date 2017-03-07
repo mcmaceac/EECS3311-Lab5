@@ -27,7 +27,6 @@ feature {NONE} -- Initialization
 feature -- model attributes
 	i : INTEGER
 	g: GAME
-	--history: LINKED_LIST[COMMAND]		--history of commands for undo / redo
 
 feature -- model operations
 	default_update
@@ -46,11 +45,6 @@ feature -- model operations
 feature -- queries
 	out : STRING
 		do
---			if attached g as game then
---				Result := game.game_state
---			else
---				create Result.make_from_string (status)
---			end
 			Result := g.game_state
 		end
 

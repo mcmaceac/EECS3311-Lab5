@@ -1,0 +1,11 @@
+new_game("Glasgow", "Belfast")
+play("Glasgow", 1)
+undo
+undo
+redo
+play("Belfast", 4)
+play("Glasgow", 5)
+play("Belfast", 6)
+play("Glasgow", 9)
+play_again
+new_game("One, "Two")

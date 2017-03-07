@@ -38,18 +38,19 @@ feature {NONE}--Attributes
 	board: ARRAY[CHARACTER]	--game board containing all marks
 	board_size: INTEGER = 3
 
-feature --history of commands in game
+feature {ETF_COMMAND}--history of commands in game
 	history: LINKED_LIST[COMMAND]
 
-feature --Queries
+feature {ETF_COMMAND}--Queries
 	game_finished: BOOLEAN		--so the model can know when a game is finished
 		do
 			Result := winner	--if there is a winner the game is finished
 		end
-		
+
 	err_message: STRING
 	next_instruction: STRING
 
+feature
 	game_state: STRING
 		do
 			create Result.make_empty
@@ -85,7 +86,7 @@ feature {NONE} --Privileged Commands
 			create board.make_filled('_', 1, board_size * board_size)
 		end
 
-feature --Commands
+feature {ETF_COMMAND} --Commands
 
 	new_game (p1: STRING; p2: STRING)
 		do
@@ -110,7 +111,6 @@ feature --Commands
 	play_again
 		do
 			if game_finished then
-				--board := <<'_','_','_','_','_','_','_','_','_'>>		--wiping board
 				wipe_board
 				err_message := "ok:"
 				history.wipe_out										--clear command history
