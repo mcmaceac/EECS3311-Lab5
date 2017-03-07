@@ -19,6 +19,7 @@ feature --attributes
 	pos: detachable INTEGER_64
 	p: detachable STRING
 	err: detachable STRING
+	next: detachable STRING
 
 feature -- command
 	play(player: STRING ; press: INTEGER_64)
