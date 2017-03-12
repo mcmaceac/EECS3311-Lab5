@@ -18,3 +18,7 @@ diff at4.actual.txt at4.expected.txt
 mytictac.exe -b at5.txt > at5.actual.txt
 tictac.exe -b at5.txt > at5.expected.txt
 diff at5.actual.txt at5.expected.txt
+
+mytictac.exe -b at6.txt > at6.actual.txt
+tictac.exe -b at6.txt > at6.expected.txt
+diff at6.actual.txt at6.expected.txt

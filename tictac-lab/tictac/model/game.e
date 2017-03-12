@@ -26,9 +26,7 @@ feature --Initialisation
 		end
 
 feature {NONE}--Attributes
-	new_game_started: BOOLEAN	--this variable is needed because for some reason there is a
-								--space in the error message for new game when you havent started a game already
-								--vs if you have started a game already
+
 	player1: STRING
 	player2: STRING
 	start_player: STRING 	--used to track who goes first in each round
@@ -46,6 +44,7 @@ feature {ETF_COMMAND}--Queries
 		do
 			Result := winner	--if there is a winner the game is finished
 		end
+	new_game_started: BOOLEAN
 
 	err_message: STRING
 	next_instruction: STRING
