@@ -219,4 +219,12 @@ feature {ETF_COMMAND} --Commands
 				p1_turn := turn
 			end
 		end
+
+	reverse_play_again (err: STRING; next: STRING)
+		do
+			if not game_finished then		--only reverse a play if the game is not finished
+				err_message := err
+				next_instruction := next
+			end
+		end
 end
