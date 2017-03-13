@@ -22,10 +22,10 @@ feature -- command
 	play_again
     	do
 			-- perform some update on the model state
+			err := model.g.err_message
+			next := model.g.next_instruction
 			model.g.play_again
 
-			err := "ok:"
-			next := model.g.next_instruction
 			if not model.g.game_finished then						--game is still active
 				model.g.remove_all_right(model.g.history.index)		--erasing so redo functions properly
 				model.g.history.extend (Current)
@@ -46,7 +46,7 @@ feature -- command
 
     redo
     	do
-			--do nothing
+			model.g.play_again
     	end
 
 end

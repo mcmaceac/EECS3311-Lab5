@@ -125,8 +125,11 @@ feature {ETF_COMMAND} --Commands
 				else
 					next_instruction := player2 + " plays next"
 				end
+			else if not new_game_started then
+				err_message := "finish this game first: "
 			else
 				err_message := "finish this game first:"
+			end
 			end
 		end
 
@@ -139,7 +142,9 @@ feature {ETF_COMMAND} --Commands
 			mark: CHARACTER
 			score_index: INTEGER  	--indicates the proper index for the score array depending on who's turn it is
 		do
-			if game_finished then
+			if not new_game_started then
+				err_message := "no such player: "
+			else if game_finished then
 				err_message := "game is finished:"
 			else
 				if p1_turn then			--this ifelse is used to avoid unnecessary and ugly code duplication
@@ -183,6 +188,7 @@ feature {ETF_COMMAND} --Commands
 					end
 				end
 				end
+			end
 			end
 		end
 

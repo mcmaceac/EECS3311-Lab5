@@ -27,9 +27,6 @@ feature -- command
 		require else
 			play_precond(player, press)
     	do
-    		if not model.g.new_game_started then
-				model.g.err_message.make_from_string ("no such player: ")
-			else
 				-- perform some update on the model state
 				err := model.g.err_message					--saving the current error message
 				next := model.g.next_instruction
@@ -45,7 +42,6 @@ feature -- command
 				else													--game is finished, wipe the history
 					model.g.history.wipe_out
 				end
-			end
 
 			etf_cmd_container.on_change.notify ([Current])
     	end
